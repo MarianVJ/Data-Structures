@@ -1,0 +1,182 @@
+						Tema 1 SD
+				Jorascu Marian Vladut 315CD
+		
+
+	Pentru realizarea acestei teme am folosit o variabila globala denumita
+Nglob pe care am initializat-o cu 0 si cu ajutorul careia voi retine
+pe intreg parcursul programului numarul curent de ghisee deschise
+la inceputul programului aceasta va fi 0 ( semn ca nu este niciun ghiseu
+deshis) . De asemenea inainte de inceperea scrierii functiilor
+am scris antetele functiilor adauga_persoana si inchide_ghisee pentru a 
+le utiliza in cadrul altor functii.
+	Functia deschide_ghisee : Verific daca exista ghisee cu ajutorul
+variabilei Nglob , daca aceasta este 0 inseamna ca nu exista niciun
+ghiseu deschis . In acest caz aloc in prima faza N ghisee vectorului
+unde N reprezinta numarul de ghisee ce trebuiesc deschise, dupa care
+verific daca alocarea a avut succes , in caz negativ efisez
+un mesaj de eroare si parasesc functia. Daca alocarea a avut succes
+, cu ajutorul unui for am parcurs toate ghiseele de la 0 la N 
+si am alocat fiecare ghiseu. Dupa alocarea fiecarui ghiseu in parte am 
+verificat daca alocarea a esuat , si am afisat in acest caz un mesaj de
+eroare. ( de asemenea la afisarea acestor mesaje de eroare se paraseste
+si functia cu ajutorul unui return) . Daca alocarea a reusit cei doi
+pointeri (*ghisee)[i]->primul si (*ghisee)[i]->ultimul sunt initializati
+cu NULL , semn ca acel ghiseu nu contine nicio persoana momentan. In cazul 
+in care deja mai sunt deschise ghisee, Nglob este diferit de 0 , si in
+acest caz se intra pe ramura else si vom incerca sa redistribuim persoanele
+in noul numar de ghisee in modul cerut .Ideea mea a fost aceea de a 
+creea un vector cu un singur element ghiseu[0] in care voi stoca temporar
+toate persoanele din toate ghiseele , am ales sa folosesc acest mod de
+stocare deoarece cu ajutorul functiei adauga_persoane pot adauga foarte
+usor persoanele in ordine crecscatoare dupa prioritate si dupa numa. Astfel
+parcurc toate persoanele din toate ghiseele vechi si adaug rand pe rand 
+cu ajutorul functiai adauga_persoane toate persoanele. Dupa ce 
+am salvat toate persoanele . Eliberez toata memoria pentru vechile ghisee
+Si aloc memorie pentru *ghisee in acelasi mod in care am alocat o si 
+in cazul in care nu erau deschise alte ghisee. Dupa ce am deschis noile
+ghisee ( N ) voi incepe sa adaug persoane in urmatorul mod. Cu ajutorul
+unui pointer "nod" parcurg toate elementele din ghiseu[0] ( vecoturl
+meu care contine toate elementele) pana cand ajung la final. De asemenea am
+initializat o variabila nr cu 0 cu ajutorul careia voi pune fiecare
+persoana in ghiseul corespunzator . Persoanele fiind aranjate
+in ordine crescatoare fiecarei persoane ii va corespunde ghiseul nr%N , unde
+N este numarul actual de ghisee . Astfel parcur toate elementele vectorului
+si le adaug in modul cerut in cerinta. La final eliberez toate memoria
+alocata vectorului ghiseu[0] cu ajutorul functiei inchide_ghisee. de asemenea
+pentru redistribuirea in noile ghisee m-am folosit de functia adauga_persoane
+. In final savez in variabila mea globala Nglob valoarea N , asta inseamna
+ca momentan sunt deschise N ghisee.
+	Functia inchide_ghisee : Cu ajutorul unui for parcurc toate ghiseele
+de la 0 pana la Nglob-1 pentru a elibera. cu ajutorul pointerului nod parcurg
+toate elementele din giseul curent , in temp salvez de asemenea adresa 
+celulei ce urmeaza a fi eliberata , dupa care trec la urmatorul element din
+coada de persoane. In finalul instructiunniii while cu ajutorul careia 
+parcurg oamenii din ghisee eliberez mai intai numele alocat persoanei,
+dupa care eliberez celula intreaga. In finalul instructiunii while eli
+berez memoria alocata pentru fiecare element din vectorul de ghisee.
+Iar in finalul functiei eliberez memoria alocata pentru vectorul de ghisee
+si il initializez pe acesta cu NULL. De asemenea inainte de a parasi 
+functia salvez in variabila globala Nglob valoarea 0 , pentru a sti 
+faptul ca momentan nu mai sunt ghsiee deschise.
+	Functia adauga_persoana : La inceputul acestei functii verific
+cazul in care nu sunt deschise ghisee si parasesc funcctia , deoarece
+nu am unde sa adaug persoane . Dupa care aloc memoria pentru noua 
+persoana ce urmeaza sa fie adauga in unul  dintre ghisee . De asemenea
+aloc memorie si pentru nume . SI salvez in nod->prioritate si in nod->nume
+informatiile corespunzatoare . Dupa care urmeaza sa caut pozitia in care
+el trebuie adaugat in ghiseul "numar_ghiseu". Primul caz pe care il
+verific este acela in care ghiseul curent nu are nicio persoana in el
+astfel atat primul cat si ultimul element din ghiseu vor fi
+persoana care urmeaza sa fie adaugata . Astfel fac ca cei doi pointeri
+sa pointeze catre nodul proaspat adaugat si parasesc functia. In cazul
+in care ghiseul nu este gol se intra pe ramura else. Cu ajutorul
+pointerului temp voi parcurge elementele din ghiseul respectiv , inital
+acesta pointeaza catre primul element din ghiseu . Unul dintre cazurile
+speciale pe care il verific este acela cand elementul ce urmeaza sa fie 
+adaugat trebuie sa fie pus pe prima pozitia din ghiseu . Astfel 
+in inceputul acestei instructiuni else, verific daca primul element
+din ghiseu are prioritateea mai mic decat noul ghiseu ce urmeaza sa fie 
+adaugat , sau daca au aceeas prioritate , dar noul ghiseu are o valoare
+mai mic din punct de vedere lexicografic , caz in care i se cuvine acestuia 
+prima pozitie. Astfel refac legaturile dintre liste. Noul nod va pointa cratra
+fostul prim-nod . Iar fostul-prim nod va pointa catre nodul adaugat. De
+asemenea trebuie actualizata prima pozitie din ghiseul curent ca fiind
+noul nod adaugat. De asemenea se iese cu succes din aceasta functie
+cu ajutorul unui return . In cazul in care elementul nu trebuie adaugat
+pe prima pozitia se cauta elementul dinaintea acestuia , acesta va fi salvat
+in temp. Astfel cu un while parcurgem toate elementele atata timp cat
+temp nu a ajuns la NULL sau pana cand nu a fost gasit elementul inaintea
+caruia trbuie adaugat noul nod . Dupa while se verifica doua cazuri
+In care temp este diferit de NULL asta inseamna ca noul nostru element
+trebuie adaugat in mijlocul cozii si nu avem cazuri de nedeterminare
+. Astfel primul si ultimul element din coada raman neschimbate , dar
+trebuie sa refacem cateva legaturi intre elementele cozii
+. Noul element va pointa catre temp in fata si in spate catre 
+temp->anterior , iar temp->anterior va pointa catre nod
+elementul care pana atunci pointa la temp acum va pointa catre noul nod
+adaugat. In cazul in care temp este NULL , asta inseamna ca noaua persoana
+trebuie pozitionata la finalul cozii . Astfel se modifica ultimul element
+din coada care va fi noul noud . Si se refac legaturile dintre elemente.
+Dupa care cu ajutorul unui return in ambele cazuri dupa ce am adaugat 
+elementul , se paraseste functia.	
+	Functia sterge_persoana : Eu parcurg ghiseul din care trebuie sa efectuez
+stergerea cu ajutrul unui pointer denumit "nod" . Inainte ca acesta
+sa pointeze catre primul element , verific daca numar_ghsieu este mai mic 
+strict decat Numarul total de ghisee , deoarece e posibil ca eu sa vrea
+sa accesez un ghiseu care nu exista , si sa am coruperi de memorie .
+Astfel verific , iar daca nu ghiseul cerut nu exista afisez un mesaj de 
+eroare si paraesc functia cu ajutorul unui return . Dupa care , daca se
+trece de acest while inseamna ca ghiseul cerut este bun. si salvez in nod
+adresa primului element din coada. Odata salvata adresa verific daca 
+exista persoane in coada , in cazul in care nu exista afisez un mesaj
+care sa imi spuna ca nu exista persoane in coada si nu am pe cine sa 
+sters si ies din functie cu ajutorul unui return .  Daca se trece
+si de aceasta parte parcurc toate elementele din ghiseu , trecerea la 
+urmatorul element se face la finalul while-ului cu instructunea 
+nod = nod->urmator . La inceputul while-ului verific daca elementul 
+curent este cel pe care eu doresc sa-l sterg , daca da urmeaza sa analizez
+cazurile in care el s-ar putea afla( la inceput , la sfarsit , sau 
+si la inceput si la sfarsit adica este unicul element). In cazul in care 
+este primul element exista doua posibilitati sa fie singurul din coada
+asta inseamna ca trebuie lista urmeaza sa fie goala . Marchez faptul ca lista
+este goala , eliberez memoria pentru nume dupa care pentru celula in care este
+salvat elementul si ies din functie cu un return. Daca nu este singurul
+element Se modificac doar primul element din coada. Nodul din fata lui
+va pointa catre NULL in spate ( adica este primul element din coada),
+dupa care eliberez atat memoria alocata pentru nume cat si memoria
+celulei in care a fost tinute datele desre aceste, si parasesc
+functia cu ajutorul unui return .In cazul in care nod->anterior este
+diferit de NULL asta inseamna ca nu este primul si de asemenea si
+aici exista doua cazuri in care acesta se fla in inteiorul ghiseului
+sau la final . IN cazul in care se afla la finalul ghiseului , 
+ultimul element din ghiseu va fi cel de dinainte , si acesta va pointa 
+catre NULL. In cazul in care se afla la mijlocul cozii , se refac legaturile
+dintre elementele din fata si din spatele acestuia . In ambele cazuri
+se alibereaza mai intai memoria pentru nume , memorie pentru celula si mai
+apoi se paraseste functia cu ajutorul unui return .
+	Functia sterge_primii_oameni : Cu ajutorul unui for parcurg toate
+ghiseele si pe rand incerc sa scot din ele primul element , asta in 
+cazul in care el exisat . Voi folosi doi pointeri intr-unul voi retine primul
+element pentru a incerca sa refac legautirle dintre elemente , iar in celalalt
+voi retine adresa celulei ce urmeaza sa fie stearsa . In cazul in care 
+exista minimum un element ( adica am ce sa sterg) refac legaturile
+dupa care eliberez memoria alocata pentru nume , memoria celulei .
+	Functia calculeaza_numar_oameni_ghiseu : Aceasta functia numara
+oamenii dintr un ghiseu x , dat ca parametru ( numarul este dat ca parametru)
+. Se verifica la inceput daca exista ghiseul din care dorim sa numaram
+numarul de persoane. In caz afirmativ incepem numaratoarea. Vom retine
+numarul de persoane intr-o variabila de tip int count . Parcurgem elementele
+ghiseului cu ajutorul unui while si cu ajutorul pointerului nod care 
+pentru icneput va retine adresa primei celule.
+	Functia calculeaza_numar_oameni_ghisee : Se aseamana foarte mult cu
+functia care numara oamenii dintr un ghiseu. Cu un for se parcurc toate
+ghiseele , rand pe rand ( numarul de ghisee fiind salvat in variabila
+globala Nglob). Dupa care in mod similar cu functia explicata anterior
+se numara . Variabila in care retinem numarul total de persoane este count
+si este incrementata cu 0 la inceputul functiei.
+	Functia gaseste_pozitie_persoana : La inceputul functiei incrementez
+o variabila de la 0 cu ajutorul careia voi retine pozitia persoanei
+pe care o caut. Inainte de a incepe cautarile verific daca exista
+ghiseul in care eu urmeaza sa caut , in caz afirmativ . Parcurg toate 
+elementele cu ajutprul unui while si in momentul in care o gasesc returnez
+pozitia salvata in poz . Trecerea de la un element la altul se face
+in instructiunea poz=poz->urmator .  In cazul in care elementul nu 
+exista in ghiseu se va returna in finalul functiei -1. Semn ca nu exista
+acea persoana in ghiseul cerut.
+	Functia gaseste_persoana_din_fata : In inceputul functiei se 
+verifica daca ghiseul in care se doreste cautarea exista , in caz afirmativ
+Incepem sa cautam elementul dorit . Dupa ce am gasit elementul verificam
+daca exista element in fata lui si ii afisam numele . Daca elementul nu
+s-a gasit in finalul functiiei se va returna mesajul "Nu exista".
+	Functia afiseaza_rand_ghiseu : Vom parcurge elementele din ghiseul
+dorit cu ajutorul unui pointer nod in care vom salva la inceput
+adresa primului element din ghiseu . Inainte sa incepe afisarea elementelor
+verificam faptul ca ghiseul dorit exista ( este mai mic ca Nglob). Inainte
+sa incepem cautarea propriuzisa verificam de asemenea daca eacesta nu este
+gol daca nu este gol se parcurg pe rand elementele acestuia cu ajutorul unui
+while si se afiseaza numele si prioritatea , iar in cazul in care 
+nu exista elemente se afiseaza mesajul "Ghiseul nu are niciun elemnt".
+
+
+
+

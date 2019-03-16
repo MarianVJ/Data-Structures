@@ -1,0 +1,223 @@
+							Tema 2 SD
+				Jorascu Marian Vladut 315CD
+
+Functia CreateTree: functia CreateTree creeaza arborele , pentru inceput
+aloca memorie pe heap pentru arbore dupa care aloca celula pentru 
+nill , care joaca rolul de NULL . Pentru inceout nu avem niciun element
+asta inseamna ca atat radacina cat si toti pointerii din radacina
+vor pointa catre aceasta celula nill. De asemenea tot in aceasta functie
+initializam functiile de creare de element de informatie , de comparare
+\de element de , eliberare a memoriei alocate pentru elemente sii
+informatie. t->size va fi initializata cu 0 , semn ca nu exista niciun element
+inca in arbore . 
+
+Functia CreateTreeNode : Aceasta functie creeaza un nou , care poate fi
+atat nod al arborelui , sau nod din lista dublu inaltuita , pe care
+il putem accesa doar cu ajutorul legaturilor de next si prev.
+Pentru inceput il alocam pe stiva si il intializamc cu elementul si
+informatia necesar cu ajutorul functiilor de createElement si createInfo
+Presupunem intiial ca acesta este unic in arbore asa ca end ul 
+va pointa tot catre el , height ul va fi 1 . Deoarece in prima faza
+acesta va fi frunza , dupa care returnam.
+
+Functia DestroyNode : elibereaza memoria alocata pentru element 
+pentru informatie si celula propriuzisa , eliberarea ifnormatiei
+si a elementului se realizeaza cu cele doua functii de destroyElement
+si destroyInfo.
+
+Functia search: cauta un element dorit , este data ca parametru
+o valoare si se verifica daca exista in arbore o celula care are
+valoare din elem egala cu acea valoare . Astfel cat timp
+nodul de unde incep cautarea nu este nill si aceste elemente
+adica elementul din nod si elem , cel pe care trebuie sa il caut
+nu sunt egale , continui cautarea. Astfel daca elementul este mai mic
+ma duc in stanga , altfel ma duc in dreapta . Compararea pentru a vedea
+daca ma voi duce in stanga sau in dreapta se realizeaza cu ajutorul
+functiei compareElement. La final returnez nodul dorit , in cazul in care 
+exista sau t->nil in czul in care elementul dorit nu se afla in arbore.
+
+Functia minimum : acesta functiei cauta minimul pornind de la un anumit nod x
+Astfel se duce cat de mult in stanga posibil , dar fara a intra in celula nil
+astfel aceasta functia retunreaza cel mai din stanga nod;
+
+Functia maximum : se aseamana foarte mult cu functia minimum , doar ca
+aici se cere cel mai mare element asa ca ne vom duce cat de mult posibil
+in dreapta . Dupa care returnam cel mai din dreapta element.
+
+Functia succesor : trebuie sa retunreze elementul succesor nodului x
+cu alte cuvinte cel mai mic alement mai mare decat x . Astfel : 
+daca am copil drept , adica sunt elemente mai mari decat x , voi
+returna minimul subarborelui drept si il returnez . Daca nu are copil
+drept atunci ma duc in sus , cu ajutorul legaturii catre parinte
+atata timp cat nu am ajuns la celula nill ,si cat nodul precedent
+este copilul drept . De fiecare data iainte sa terc la parinte
+memorez in x , copilul pentru a verifica daca x este copilul
+dreot al parintelui sau , cand acesta nu va fi copilul drept parasesc functia
+si returnez parintele sau .
+
+Functia predecessor : se aseamana foarte mult cu functia succesor , doar ca
+aceasta cauta cel mai mare elemnt din elementele mai mici decad un nod 
+x primit ca parametru . Astfel daca are subarobore stanga
+vom cautam maximul din subarborele stang .Altfel daca nodul x nu 
+are subarbore stang . Ne vom duce tot mai sus in arbore pentru a gasi
+predecesorul ., folosing acelasi rationament ca la succesor
+doar ca aici vomr parasi functia cand nodul x care memoreaza copilul
+nu va mai fi copilul stang al tatalui sau. ( desigur ramane mereu conditia 
+da oprire aceea cand vom ajunge la nil)
+
+Functia updateHeight : nu a fost ceruta sa fie implementata
+dar am construit o eu deoarece am considerat ca este nevoie de fiecare
+data cand apelez functia fix up inainte sa verific
+balance ul trebuie ca nodurile sa aiba inaltimea corespunzatoare . 
+Aceasta functie procedeaza astfel : daca nodul cauira trebuie sa ii 
+updatez inaltimea este frunza atunci height ul sau va fi 1 si parasesc
+funtia semn ca am terminat . Altfel daca acesta nu este frunza
+Daca are doi copii va avea cea mai mare inaltime dintre inaltimea
+copilului stang si inaltimea copilului drept . Altfel , daca unul dintre
+fii este nul : va avea inaltimea egala cu cea a fiului nenul +1
+deoarece este cu un nivel mai sus.
+
+Functia GetBalance : daca nodul pointeaza catrenil returnam 0 
+daca nodul este frnuza atunci retunram tot 0 deoarece este echilibrat.
+Altfel daca ambii copii ai nodului sunt nenlui adica nu pointeaza catre
+celula nil atunci retunrez diferenta dintre inaltimea subarborelui stang
+si inaltimea subarborelui drept . Altfel daca unul dintre acestia este
+nul : voi retunrna inaltimea copilului nenul : cu plus daca subarborele
+stang este nenul si cu minus daca subarborele drept este nenul ).
+
+Functia AvlFixUp : Aceasta functie este una elemenntara pentru avel
+deoarece este apelata de fiecare data cand stergem sau adaugam un nod
+din arbore deoarecce una din aceste opratii ar putea dezechilibra
+arborele . astfel aceasta primeste ca parametru un nod x de unde
+incep sa merg tot in sus pana ajung la radacina si sa fac anumite echilibrari
+in cazul in care este nevoie . Asa ca atat tmo cat nu am ajuns la final
+adica la celula nil . IN primul rand actualizez inaltimea arborelui 
+cu ajutorul functiei auxiliare pe care am creat o . DUpa care 
+fac legaturile dintre end ul elementului curent si succesrorul din arbore
+si prev ul nodului curent si end ul predecesorului : cu alte cuvinte
+stabilizez legaturile elementelor din lista dublu inaltanuita , cu acest 
+fix up. Dupa care verific echilibrul arborelui : Daca acesta este 
+dezechilibrat la dreapta , adica trebuie sa fac o rotatie la stanga
+mai itnai verific de care rotatie este nevoie dubla sau simpla : acest
+lucru il verific cu ajutorul diferentei de inaltime dinre nepotul interior
+si nepotul exterior . Daca inaltimea nepotului interior este mai mare
+decat inaltimea nepotului exterior atunci este nevoie de o rotatie
+dubla , altfel este nevoie de o rotatie simpla la stanga .
+In mod similar prodecez si pentru cazul in care arborele este dezechilibrat
+in stanga si trebuie sa fac o rotatie la dreapta . Astfel fac aceste
+operatii pana ajung la final . Adica inclusiv dupa ce verific echilibrul
+radacinii . Dupa ce ies din while . Ma asigur ca cel prev ul celui mai mic
+element si next ul celui mai mare elemetn pointeaza catre celula nil
+aceste legaturi sunt esentiale pentru lista dublu inlantuita.
+
+Functia insert : Daca arborele este gol , nu are niciun element
+atunci elementul obitnuit cu ajutorul functiai CreateNode va fi 
+chiar radacina arborelui nostru . Altfel daca arborele nu este
+nul incep sa caut mai intai locul unde trebuie pozitionat .
+Astfel cat timp nu am ajuns la final , caut locul unde trebuie sa 
+adaug nodul nou creat. La fiecare pas retin in newnod->pt 
+parintele nodului de adaugat , deoarece cand voi iesi din aceasta
+functie
+nu voi mai avea nicio legatura catre parintele , care pana atunci
+fusese frunza asa ca retin mereu in newnod->pt parintele "provizoriu"
+al acestuia. Compar elementele intre ele cu functia compare , iar daca
+elementul de adaugat este mai mic ma duc in stanga , iar daca
+elementul de adaugat este mai mare ma duc in dreapta . Saaaau
+daca elementul nu este nici mai mare nici mai mic inseamna ca este egal
+asa ca va trebuie sa adaug elementul in capatul listei dublu inlantuite
+marchez acest lucru cu ajutprul unu sw pe care il incrementez cu 1 
+refac legaturile din lista dublu inatnuita si parasesc while ul meu
+cu ajutorl uni break . DUpa ce am iesit din while incrementez cu 1 tree->size
+semn ca inca un element a fost adaugat , Dupa care ma pregatesc sa reechilibrez
+arborele , dar verific daca sw = 0 adica nodul de adaugat este nou
+in arbore atunci daca este mai mic decat parintele sau , il adaug in
+stanga daca este mai mare decat parintele sau il adaug in dreapta .
+Dupa care apelez functia fixup , pentru a echilibra arborele in cazul in care este dezchilibrat , dar mai ales pentru a modifica inaltimile fiecarui
+nod. 
+
+Functia delete : Acesta functia trebuie sa stearga ori un nod 
+in cazul in care acesta este unic si nu are duplicate , sau daca are
+duplicate elementul spre care pointeaza end ul . Astfel , pentru inceut
+verific daca elementul de sters , trebuie sters din arbore sau 
+din lista dublu inaltuita . Daca end ul este diferit de z->end
+atunci trebuie sters din arbore . in z tinem elementul pe care
+dorim sa il stergem , am aflat adresa acestuia cu ajutorul functiie
+search . Pentru stergerea ma voi folosi de trebuie pointeri a b c 
+. In c dupa cum am zis este stocata adresa eementului pe care dorim
+sa il stergem din arbore . AStfel daca c are un singurl copil stergea
+este simpla si in b vom memoria adresa lui c , altfel daca c are doi
+copii in b vom memora adresa succesorului lui c , deoarece
+acesta trebuie adaugam in locul sau . Dupa care salvam in a adresa
+copilului nevid al lui b in cazul in care exista vreoun copil nevid
+, unde b poate fi ciar c sau succesorul . Daca a este nenul
+atunci trebuie sa ii schimbam parintele cu parintele lui b . 
+De asemenea verificam daca b este radacina , iar in acest caz radacina
+va deveni chiar nodul a. Daca nu este radacina , refacem legaturile 
+dintre parintele lui b si nodul a ce va fi noul fiu al parintelului
+lui b , cu alte cuvinte ii ia locul lui b in ierarhia arborelui . Astfel
+daca c are doi un singurl copil stergera propriuzisa deja s a incheat
+dar mai exista si cazul cand c are doi copii, si asta inseamna ca 
+b este succesorul lui c , astfel daca c are doi copii , nu vom reface legaturile
+ci doar vom copia in c elementele din b . eliberam ianinte elementele
+din c care sunt alocate pe stiva si de care nu mai avem nevoie, deoareec
+daca nu facem aici aceasta stergere ele se vor pierde . Dupa care
+b va fi parintele sau , stocam inainte adresa lui b in varabila aux
+deoarece trebuie sa o eliberam . Dupa care incepem sa reechilibram
+arborele incepand cu parintele lui b .
+In cazul in care trebuie sa efectuam o steregere din lista, este mult mai usor
+deoarece trebuie sa refacem doare legaturile dintre elementele listei
+Astfel daca nodul este diferit de maximum , Refacem legaturile corespunzatoare
+eliberam memoria nodului ce trebuie sters . In cazul in care nodul de sters
+este maximul , lucrurile stau cam la fel , singura diferenta este faptul ca
+end ul va pointa catre celula nil .
+
+Functia DestroyTree : sterge toate elementele arborelui , inclusiv arborele ,
+ma folosesc de functia delete si sters de fiecare data radacina, cat timp
+am elemente in arbore . Dupa ce am sters toate elementele arborelui , eliberez
+memoria pentru celula nil si memoria alocata pentru arborele propriuzis.
+
+Functia BuilTreesfromfile : Care arer rolul de a cosntrui cei doi arbori
+unul va fi pentru model iar celalalt pentru pret. Astfel citesc linie 
+cu lnie din fisier pana ajung la final . folosesc strtok si salvez
+modlul , iar atol pentru a memora pretul . Dupa care adaug in cei doi 
+arbori modelul respectiv pretul . Si incrementez indexul de fiecare data
+cu
+variabila aux in care am stocata la fiecaer pas dimensiunea sirului citit.
+la final eliberez memoria alocata pentru buferull in care retin de fiecare
+data lungimea sirului si incidh fisirul deschis pentru citire.
+
+Functia modelGroupQuery : aceasta functia creeaza un range un toti
+indexii care au un model dat ca parametru , asa ca incep cautarea
+de la cel mai mare element din arbore dar care este totodata
+mai mic decat q din punct de vedere lexicografix . Si cat timp am elemente 
+asemenea in lista , adica acelasi model , adaug indexul corespunzator 
+Nu am folosit search deoarece search cauta doar ellemente de 3 literea
+iar eu pot primi ca parametru si o singura litera asa ca , incep sa caut
+de la inceputul listei , si dupa ce voi ajunge la ultimul element ce 
+indeplineste conditia ceruta voi parasi functia . deoarece lista este
+ordonata crescator .
+
+Functia priceRangeQuery : de asemenea alocam memorie pentru 
+range si pentru vectorul de indexi ,si aici incepe cautarea de la inceput
+pentru ca noua ni se da un interval in care trebuie sa cautam nu o anumita 
+valoare propriuzisa si functia search face cautari doar pe valori
+existante nu retunreaza si cea mai apropiata valoare . Astfel
+INcepe sa efectuam cautarile pornind de la cel mai mare nod 
+mai mic decat pretul minim dat ca parametru . Si cat timp avem
+elemente in intervalul cerut le adaugam in vectorul de indexi
+Cand un element nu se afla in intervalul cerut si vectorul meu de indexi
+are elemente inseamna ca am trecut de raza noasta de cautare si parasim
+functia deoarece sigur nu vom mai gasi elemente deoarece lista este
+odrdonata crescator . foarte asemanatoare este si functia modelRamgeQiery
+explicatiile pentru acestea se afla in cod.m
+
+Functia modelPriceRangeQuery : trebuie sa caute elementele care se afla
+intre anumite modele si intr un interval de preturi. pentru inceput
+apelez functia modelRangeQuery construita la cerinta anterioara .  Dupa ce
+am toate modelele cuprinse in intervalul dat , trebuie sa fac o selectie 
+a lor si sa le pastrez doar pe ccele care au pretul coprins in intervalul dat
+asa ca citesc din functie fiecare rand corespunzator modelelor determinate
+folosind indexii 
+si verific ce pret au , daca corespund intervalului le adaug in range ul
+final daca nu ,nu. la finalul functiei inchid fisierul deschis pentru citir
+si eliberez memoria alocata pe stiva pentru range ul temporar de modele.

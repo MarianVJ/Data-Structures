@@ -1,0 +1,64 @@
+			Tema 3 SD
+				Jorascu Marian Vladut 315CD
+
+Pentru rezolvarea temei am folosit metoda lui Khun cunoscuta si
+sub denumirea de metoda ungara datorita nationalitatii acestuia.
+
+Voi prezenta mai intai ideea de ansamblu a temei , dupa care pe 
+pasi algoritmul pe care l am folosit pentru rezolvarea temei.
+
+Iepurasii si vizuinele pot fi vazute ca 2 perechi de noduri dintr un
+graf bipartit . In total daca sunt n noduri si n vizuine , graful bipartit
+ar avea 2 * n noduri . Daca am reprezenta 2 matrici cu ajutorul
+matricei de adiacenta am avea o matrice sparse, cu n*n zeroruri 
+si n* n elemente care nu sunt zero. Astfel am ales ca una dintre matrici 
+sa fie de cea de adiacenta de 2n*n iar cealalta sa fie o matrice de 
+n*n o matrice in care voi retine la fiecare pas al algorimului unde am
+format zerouri. Iar pe matricea de adiacenta , aceasta am construit o 
+ca fiind simetrica , in partea superioara , fac operatii , partea inferioara
+ramane neschimbata deoarece la final trebuie sa adun distantele minime
+de la ficare iepuras la vizuina corespunzatoarea.
+
+In prima etapa, luam minimul dupa fiecare linie , si il scadem de pe linia
+respectiva , ( pentru fiecare linie ) , dupa care luam minimul
+de pe fiecare coloana si o scadem de pe coloana respectiva. Aceasta etapa
+se petrece o singura data. Odata ce am formata un numar minim de zerouri
+incepem rezolvarea propriuzisa a problemei.
+
+Urmeaza prezentarea algoritmului lui Khun.
+Se alegea initial linia care contine cel mai mic numar de zerouri , incepand
+de la prima linie spre ultima , dupa care se incadreaza primul zero
+de pe linia respectiva si se bareaza celelalte zeroruri de pe
+linia si coloana aelementului incadrat . Aceste zeoruri barate si incadrate
+le tinem minte in matricea G2 ca fiind 1 reprezinta un zero incadrat
+iar -1 reprezinta un zero barat . Repetam acest pas pana cand nu mai
+avem zerouri sa incadram sau sa baram. 
+
+OData ce trecem si de aceasta etapa incepem marcarea liniilor si ale coloanelor.
+Aceasta marcare a liniilor si coloanelor depinde de numarul de zerouri
+si de tipul acestora daca sunt incadrate sau barate. Mai intai
+marcam toate liniile care nu au un zero incadrat. Dupa care
+marcam toate coloanele care au un zero sau mai multe zerouri barate
+intr o linie marcat. Dupa aceasta etapa incepem sa marcam
+toate liniile care au un zero incadrat intr o coloana marcata. Repetam
+acesti pasi pana cand nu mai avem linii sau coloane de marcat . 
+
+Odata marcate toate liniile si coloanele posibile , incepem modificari
+pe matricea de adiacenta in partea superioara , locul din matrice und
+s au mai efectuat deja modificari. In noul tablou format se alege
+elementul minim de pe tooate elementele care apartin unei linii marcate
+si unei coloane nemarcate. DUpa ce am determinat acest minim , adunam 
+acest minim tuturor elementelor de pe liniile marcate. Dupa care
+scadem minimul de pe toate coloanele nemarcate. 
+
+Odata adunate si scazute toate minimele . Reluam etapa unu cu incadrarea si 
+bararea noilor zerouri care  s au format . 
+
+Algoritmul se incheie atunci cand dupa etapa de barare si incadrare a zerourilor
+au fost incadrate numarul n de zerouri ( unde n reprezinta numarul de iupurasi
+sau de vizuine). Atunci solutia optima a fost gasita
+parasim while ul de determinarea a solutiei optime . Si facem suma tuturor
+drumurilor minim de la fiecare ieuras la vizuina corespunzatoarea , folosindu
+ne de valorile din jumatatea inferioara a matricea de adiacenta.
+
+
